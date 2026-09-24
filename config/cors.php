@@ -19,7 +19,10 @@ return [
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => array_filter(explode(',', env('FRONTEND_URL', 'https://lizy-reminder-dpzwk.ondigitalocean.app'))),
+    // Wide open: this API is only ever called with a Bearer token (never cookies —
+    // supports_credentials stays false below), so allowing every origin can't leak
+    // a signed-in session to a page that merely embeds/links to it.
+    'allowed_origins' => ['*'],
 
     'allowed_origins_patterns' => [],
 
